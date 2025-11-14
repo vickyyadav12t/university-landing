@@ -1,70 +1,174 @@
-# Getting Started with Create React App
+# University Landing Pages
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive single-page application featuring two university landing pages with lead form integration, API endpoints, and Pipedream workflow support.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- ✅ Two separate landing pages for private universities
+- ✅ Complete university information (Overview, Courses, Fees, Placements, Facilities)
+- ✅ Lead form with validation (Name, Email, Phone, State, Course, Intake Year, Consent)
+- ✅ Pipedream API integration for lead submissions
+- ✅ Dynamic fee modal fetching from API
+- ✅ Responsive design (Mobile & Desktop)
+- ✅ RESTful API endpoints (Simple and Nested JSON)
+- ✅ Download Brochure functionality
+- ✅ Apply Now button with smooth scroll
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React 19, React Router DOM
+- **Backend**: Express.js, Node.js
+- **Styling**: CSS3 with responsive design
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure
 
-### `npm test`
+```
+uni-landing-pages/
+├── src/
+│   ├── components/
+│   │   ├── LandingPage1/     # ABC Private University
+│   │   ├── LandingPage2/     # XYZ Global University
+│   │   ├── LeadForm/         # Lead capture form
+│   │   ├── Modal/            # Fees modal
+│   │   └── api/              # API utilities
+│   ├── App.js
+│   └── App.css
+├── server/
+│   └── index.js              # Express API server
+└── public/
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup Instructions
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (v14 or higher)
+- npm or yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Install dependencies:**
+   ```bash
+   cd uni-landing-pages
+   npm install
+   ```
 
-### `npm run eject`
+2. **Create environment file (optional - only if using Pipedream):**
+   Create a `.env` file in the root directory:
+   ```
+   REACT_APP_PIPEDREAM_URL=YOUR_PIPEDREAM_ENDPOINT_URL
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Running the Application
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Start the React app:**
+```bash
+npm start
+```
+App will run on `http://localhost:3000`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Note:** This is a frontend-only application. All data is stored locally. No backend server is required!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Building for Production
 
-## Learn More
+```bash
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This creates an optimized production build in the `build` folder.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Data Storage
 
-### Code Splitting
+All data is stored locally in the React components:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **University Information**: Stored in component files
+- **Fees Data**: Stored in Modal component
+- **Courses**: Stored in LeadForm component
+- **Form Submissions**: 
+  - If Pipedream URL is provided → Submits to Pipedream
+  - If no Pipedream URL → Saves to browser's localStorage
 
-### Analyzing the Bundle Size
+## Pipedream Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Create a Pipedream workflow
+2. Get your endpoint URL
+3. Set `REACT_APP_PIPEDREAM_URL` in your `.env` file
+4. The form will automatically post to your Pipedream endpoint
 
-### Making a Progressive Web App
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Free Hosting Options with SSL
 
-### Advanced Configuration
+#### Option 1: Vercel (Recommended)
+See detailed step-by-step guide in [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Quick steps:
+1. Install Vercel CLI: `npm i -g vercel`
+2. Login: `vercel login`
+3. Deploy: `vercel --prod`
+4. SSL is automatically configured
 
-### Deployment
+#### Option 2: Netlify
+1. Install Netlify CLI: `npm i -g netlify-cli`
+2. Build: `npm run build`
+3. Deploy: `netlify deploy --prod --dir=build`
+4. SSL is automatically configured
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### Option 3: GitHub Pages
+1. Install gh-pages: `npm install --save-dev gh-pages`
+2. Add to package.json:
+   ```json
+   "homepage": "https://yourusername.github.io/uni-landing-pages",
+   "scripts": {
+     "predeploy": "npm run build",
+     "deploy": "gh-pages -d build"
+   }
+   ```
+3. Deploy: `npm run deploy`
 
-### `npm run build` fails to minify
+**No backend deployment needed!** This is a pure frontend application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Routes
+
+- `/` or `/university1` - LPU Private University landing page
+- `/university2` - XYZ Global University landing page
+
+## Form Fields
+
+- Full Name (required)
+- Email (required, validated)
+- Phone Number (required, 10-digit India format)
+- State (required, dropdown with Indian states)
+- Course Interested (required, dynamic dropdown based on university)
+- Intake Year (required, dropdown: 2024-2028)
+- Consent Checkbox (required)
+
+## Features in Detail
+
+### Responsive Design
+- Mobile-first approach
+- Breakpoints: 768px (tablet), 480px (mobile)
+- Touch-friendly buttons and inputs
+- Optimized layouts for all screen sizes
+
+### Modal Functionality
+- Click "Check Course-wise Fees" to open modal
+- Fetches dynamic fee data from API
+- Shows nested fee breakdown
+- Click outside or close button to dismiss
+
+### Download Brochure
+- Generates a text file with university information
+- Automatically downloads when clicked
+
+### Apply Now
+- Smooth scrolls to the lead form
+- Better user experience
+
+## License
+
+MIT
+
+## Support
+
+For issues or questions, please open an issue in the repository.
